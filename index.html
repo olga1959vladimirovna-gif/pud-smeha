@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пуд Смеха</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <main class="page">
+        <header class="header">
+            <h1 class="title">🌞 Почём пуд Смеха?</h1>
+            <p class="subtitle">Добро пожаловать в место,<br>где улыбки<br>всегда бесплатны.</p>
+        </header>
+
+        <section class="sack-section">
+            <div class="sack-circle" id="sackCircle">
+                <!-- Главный талисман. Если файл вдруг не загрузится,
+                     JS (main.js) автоматически покажет эмодзи-заглушку ниже -->
+                <img
+                    src="assets/mascots/optimized/meshochek-main.png"
+                    alt="Мешочек — талисман Пуда Смеха"
+                    class="sack-image"
+                    id="sackImage"
+                >
+                <span class="sack-emoji-fallback" id="sackImageFallback" aria-hidden="true">🎒</span>
+
+                <!-- Контейнер для искорок и смайликов, вылетающих при нажатии кнопки -->
+                <div class="particles" id="particles" aria-hidden="true"></div>
+            </div>
+
+            <div class="quote-box">
+                <p id="quote" class="quote-text"></p>
+            </div>
+
+            <button id="openSackBtn" class="open-btn">
+                <span class="btn-icon-wrap" aria-hidden="true">
+                    <img src="assets/mascots/optimized/meshochek-main.png" alt="" class="btn-icon" id="btnIcon">
+                    <span class="btn-icon-fallback" id="btnIconFallback">🎒</span>
+                </span>
+                <span class="btn-label">Открыть Мешочек</span>
+            </button>
+        </section>
+
+        <footer class="footer">
+            <p>Пуд Смеха · сказка, которую пишут все вместе</p>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

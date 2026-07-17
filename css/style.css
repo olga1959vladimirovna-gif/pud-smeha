@@ -1,0 +1,310 @@
+/* ===== Переменные темы ===== */
+:root {
+    --color-bg: #FFF8EA;
+    --color-text: #40352D;
+    --color-accent: #F6C547;
+    --color-button: #FFB84D;
+
+    --font-title: 'Cormorant Garamond', serif;
+    --font-body: 'Nunito', sans-serif;
+}
+
+/* ===== Сброс ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    overflow-x: hidden;
+}
+
+.page {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 48px;
+}
+
+/* ===== Заголовок ===== */
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.title {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    color: var(--color-text);
+    text-shadow: 0 2px 0 rgba(246, 197, 71, 0.35);
+}
+
+.subtitle {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--color-text);
+    opacity: 0.85;
+}
+
+/* ===== Секция с мешочком ===== */
+.sack-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.sack-circle {
+    position: relative;
+    width: clamp(220px, 48vw, 300px);
+    height: clamp(220px, 48vw, 300px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff, #FFF3D6 55%, var(--color-accent) 100%);
+    box-shadow:
+        0 20px 45px rgba(246, 197, 71, 0.45),
+        0 8px 20px rgba(64, 53, 45, 0.12),
+        inset 0 0 0 6px rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 5s ease-in-out infinite;
+}
+
+/* Изображение талисмана: ~74% диаметра круга (тот же множитель применяется
+   на любом размере экрана, так как .sack-circle тоже задан через clamp) */
+.sack-image {
+    width: clamp(163px, 35.5vw, 222px);
+    height: clamp(163px, 35.5vw, 222px);
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+    animation: breathe 5s ease-in-out infinite;
+}
+
+/* Эмодзи-заглушка, если изображение талисмана не найдено */
+.sack-emoji-fallback {
+    display: none;
+    font-size: clamp(4.5rem, 14vw, 7rem);
+    line-height: 1;
+    user-select: none;
+    animation: breathe 5s ease-in-out infinite;
+}
+
+.sack-image.is-broken {
+    display: none;
+}
+
+.sack-image.is-broken + .sack-emoji-fallback {
+    display: block;
+}
+
+/* Мешочек слегка "приоткрывается" при нажатии кнопки */
+.sack-circle.is-opening .sack-image,
+.sack-circle.is-opening .sack-emoji-fallback {
+    animation: sackOpen 0.6s ease;
+}
+
+/* Контейнер для искорок и смайликов */
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.sparkle,
+.smiley-particle {
+    position: absolute;
+    bottom: 18%;
+    left: 50%;
+    pointer-events: none;
+}
+
+.sparkle {
+    font-size: 1.1rem;
+    animation: sparkleRise 0.9s ease-out forwards;
+}
+
+.smiley-particle {
+    font-size: 1.4rem;
+    animation: smileyRise 1s ease-out forwards;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Очень медленное "дыхание" талисмана в состоянии покоя: плавный рост ~2.5%, без подпрыгивания */
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.025); }
+}
+
+@keyframes sackOpen {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.08) rotate(-4deg); }
+    60% { transform: scale(1.08) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes sparkleRise {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+    15% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--tx, 0), -95px) scale(1); }
+}
+
+@keyframes smileyRise {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+    20% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--tx, 0), -115px) scale(1.1) rotate(var(--rot, 10deg)); }
+}
+
+/* ===== Приветствие Мешочка ===== */
+.quote-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.quote-text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 520px;
+}
+
+/* Каждая строка приветствия появляется плавно и с небольшой задержкой */
+.quote-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.7s ease forwards;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    line-height: 1.5;
+    opacity: 0.85;
+}
+
+.quote-line:first-child {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    opacity: 1;
+    color: var(--color-text);
+}
+
+.quote-line:nth-child(1) { animation-delay: 0.1s; }
+.quote-line:nth-child(2) { animation-delay: 0.3s; }
+.quote-line:nth-child(3) { animation-delay: 0.5s; }
+.quote-line:nth-child(4) { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 0.85;
+        transform: translateY(0);
+    }
+}
+
+.quote-line:first-child {
+    animation-name: fadeInUpStrong;
+}
+
+@keyframes fadeInUpStrong {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Кнопка ===== */
+.open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+    color: var(--color-text);
+    background-color: var(--color-button);
+    border: none;
+    border-radius: 999px;
+    padding: 18px 42px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255, 184, 77, 0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.btn-icon-wrap {
+    position: relative;
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.btn-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.btn-icon-fallback {
+    display: none;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.btn-icon.is-broken {
+    display: none;
+}
+
+.btn-icon.is-broken + .btn-icon-fallback {
+    display: block;
+}
+
+.open-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 16px 32px rgba(255, 184, 77, 0.6);
+    background-color: var(--color-accent);
+}
+
+.open-btn:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 6px 16px rgba(255, 184, 77, 0.5);
+}
+
+/* ===== Подвал ===== */
+.footer {
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 480px) {
+    .page {
+        gap: 36px;
+    }
+
+    .sack-section {
+        gap: 24px;
+    }
+}
